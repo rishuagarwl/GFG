@@ -1,0 +1,31 @@
+class Solution {
+  public:
+    string compareFrac(string str) {
+        
+        istringstream ss(str);
+        string first,second;
+        
+        getline(ss, first,',');
+        ss.ignore(1);
+        getline(ss,second);
+        
+        int a,b,c,d;
+        char slash;
+        istringstream ss1(first);
+        ss1>>a>>slash>>b;
+        
+        istringstream ss2(second);
+        ss2>>c>>slash>>d;
+        
+        double val1 = static_cast<double>(a)/b;
+        double val2 = static_cast<double>(c)/d;
+        
+        if(val1>val2)
+            return first;
+        else if(val1<val2)
+            return second;
+        else
+            return "equal";
+
+    }
+};
