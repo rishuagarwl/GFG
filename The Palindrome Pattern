@@ -1,0 +1,48 @@
+class Solution {
+  public:
+
+    string pattern(vector<vector<int>> &arr) {
+        int n = arr.size();
+        // check for row
+        for(int i=0;i<n;i++){
+            int l=0, r=n-1;
+            bool flag = true;
+            while(l<r){
+                //for row
+                if(arr[i][l]==arr[i][r]){
+                    l++;
+                    r--;
+                }
+                else{
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                string ans  = to_string(i)+ " "+ "R";
+                return ans;
+            }
+        }   
+        // check for column
+        for(int j=0;j<n;j++){
+            int l=0, r=n-1;
+            bool flag = true;
+            while(l<r){
+                //for row
+                if(arr[l][j]==arr[r][j]){
+                    l++;
+                    r--;
+                }
+                else{
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                string ans  = to_string(j)+ " "+ "C";
+                return ans;
+            }
+        }
+        return "-1";
+    }
+};
