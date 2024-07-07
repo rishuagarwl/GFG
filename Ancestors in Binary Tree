@@ -1,0 +1,25 @@
+class Solution {
+  public:
+    bool solve(Node *root, int target,vector<int>&ans){
+        
+        if(!root) return false;
+        if(root->data == target){
+            return true;
+        }
+        bool isChild = solve(root->left, target, ans);
+        
+        if(!isChild){
+            isChild = solve(root->right, target,ans);
+        }
+        if(isChild){
+            ans.push_back(root->data);
+        }
+        
+        return Ischild;
+    }
+    vector<int> Ancestors(struct Node *root, int target) {
+        vector<int>ans;
+        solve(root, target, ans);
+        return ans;
+    }
+};
