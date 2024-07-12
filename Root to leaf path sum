@@ -1,0 +1,17 @@
+class Solution {
+  public:
+    bool solve(Node* root, int target, int sum){
+        if(!root) return false;
+        sum+=root->data;
+        if(!root->left && !root->right && sum==target){
+            return true;
+        }
+        bool flag1 = solve(root->left, target,sum);
+        bool flag2 = solve(root->right, target,sum);
+        return flag1 || flag2;
+    }
+    bool hasPathSum(Node *root, int target) {
+        int sum=0;
+        return solve(root,target,sum);
+    }
+};
