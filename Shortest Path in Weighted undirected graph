@@ -1,0 +1,68 @@
+class Solution {
+  public:
+    vector<int> shortestPath(int n, int m, vector<vector<int>>& edges) {
+        //create adjacency list
+        unordered_map<int, list<pair<int,int>>> adj;
+        for(int i=0;i<m;i++){
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int w = edges[i][2];
+            
+            adj[u].push_back(make_pair(v,w));
+            adj[v].push_back(make_pair(u,w));
+        }
+        
+        //creation of distance array with infinite
+        vector<int>dist(n+1, INT_MAX);
+        vector<int> parent(n + 1, -1);
+        dist[1] = 0;
+        //creation of set on  basis(dist,node)
+        set<pair<int, int>>st;
+        st.insert(make_pair(0,1));
+        
+        while(!st.empty()){
+            auto top = st.begin();
+            int nodeDist = top->first;
+            int topNode = top->second;
+            
+            st.erase(st.begin());
+            
+            //traverse on neighbours
+            for(auto neighbour: adj[topNode]){
+                if(nodeDist + neighbour.second < dist[neighbour.first]){
+                    auto record = st.find(make_pair(dist[neighbour.first],neighbour.first));
+                    
+                    //if record found, then erase it
+                    if(record!=st.end()){
+                        st.erase(record);
+                    }
+                    //distance update
+                    dist[neighbour.first] = nodeDist+neighbour.second;
+                    parent[neighbour.first] = topNode;
+                    
+                    //record push in set
+                    st.insert(make_pair(dist[neighbour.first], neighbour.first));
+                }
+            }
+        }
+         // If there's no path from 1 to n
+        if (dist[n] == INT_MAX) {
+            return {-1};
+        }
+
+        // Reconstruct the path from 1 to n
+        vector<int> path;
+        for (int at = n; at != -1; at = parent[at]) {
+            path.push_back(at);
+        }
+        reverse(path.begin(), path.end());
+
+        // Prepare the result
+        vector<int> result;
+        result.push_back(dist[n]);
+        result.insert(result.end(), path.begin(), path.end());
+
+        return result;
+        
+    }
+};
