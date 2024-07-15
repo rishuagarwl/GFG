@@ -1,0 +1,27 @@
+class Solution {
+  public:
+    bool checker(int s, int num){
+        int sum=0;
+        while(num>0){
+            int digit = num%10;
+            num = num/10;
+            sum+=digit;
+        }
+        if(sum==s){
+            return true;
+        }
+        return false;
+    }
+    string smallestNumber(int s, int d) {
+        int x = pow(10,d-1);
+        int y = pow(10,d);
+        
+        for(int i=x;i<y;i++){
+            if(checker(s,i)==true){
+                string s1 = to_string(i);
+                return s1;
+            }
+        }
+        return "-1";
+    }
+};
