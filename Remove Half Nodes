@@ -1,0 +1,27 @@
+class Solution {
+  public:
+    Node* solve(Node* root){
+        if(!root) return NULL;
+        root->left = solve(root->left);
+        root->right = solve(root->right);
+        
+        if(root->left!=NULL && root->right==NULL){
+            Node*temp = root->left;
+            root->left = NULL;
+            return temp;
+        }
+        else if(root->left==NULL && root->right!=NULL){
+            Node*temp = root->right;
+            root->right = NULL;
+            return temp;
+        }
+        else{
+            return root;
+        }
+    }
+    Node *RemoveHalfNodes(Node *root) {
+       if(!root) return NULL;
+       solve(root);
+       
+    }
+};
