@@ -1,0 +1,16 @@
+class Solution {
+  public:
+
+    string removeDups(string str) {
+        int arr[26] = {0};
+        string t;
+        for(auto i:str){
+            if(arr[i-'a']){
+                continue;
+            }
+            arr[i-'a']++;
+            t+=i;
+        }
+        return t;
+    }
+};
