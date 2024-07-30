@@ -1,0 +1,63 @@
+class Solution {
+  private:
+  bool isSafe(int newx, int newy, vector<vector<int>>&arr, vector<vector<bool>>&vis, int n){
+      if((newx>=0 && newx<n) && (newy>=0 && newy<n) && arr[newx][newy]==1 && vis[newx][newy]!=1){
+              return true;
+      }
+      else{
+          return false;
+      }
+  }
+
+  void solve(int x,int y,vector<vector<int>>&arr, int n, vector<string>&ans, string path, 
+              vector<vector<bool>>&vis){
+                
+                //base case
+                if(x==n-1 && y==n-1){
+                    ans.push_back(path);
+                    return ;
+                }
+                
+                vis[x][y]=1;
+                
+                //4 movements - D,L,U,R
+                //check for down 
+                if(isSafe(x+1,y,arr,vis,n)){
+                    solve(x+1, y, arr, n, ans, path+'D', vis);
+                }
+                
+                //check for up 
+                if(isSafe(x-1,y,arr,vis,n)){
+                    solve(x-1, y, arr, n, ans, path+'U', vis);
+                }
+                
+                //check for left 
+                if(isSafe(x,y-1,arr,vis,n)){
+                    solve(x, y-1, arr, n, ans, path+'L', vis);
+                }
+                
+                //check for right 
+                if(isSafe(x,y+1,arr,vis,n)){
+                    solve(x, y+1, arr, n, ans, path+'R', vis);
+                }
+                
+                //backtracking , wapas jaate hue usko 0 kr do
+                vis[x][y]=0;
+                
+    }
+  public:
+    vector<string> findPath(vector<vector<int>> &mat) {
+        int n = mat.size();
+        vector<vector<bool>>visited(n, vector<bool>(n,0));
+        
+        vector<string>ans;
+        string path="";
+        if(mat[0][0]==0){
+            return ans;
+        }
+
+        solve(0,0,mat,n,ans,path, visited);
+        return ans;
+
+    }
+};
