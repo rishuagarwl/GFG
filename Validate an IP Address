@@ -1,0 +1,26 @@
+class Solution {
+  public:
+    int isValid(string str) {
+        vector<int>ans;
+        stringstream ss(str);
+        string token;
+        
+        while(getline(ss,token,'.')){
+            if(token.empty() || (token.size()>1 && token[0]=='0')){
+                return 0;
+            }
+            int num = stoi(token);
+            if(num<0 || num>255){
+                return 0;
+            }
+            else{
+                ans.push_back(num);
+            }
+            
+        }
+        if(ans.size()!=4){
+            return 0;
+        }
+        return 1;
+    }
+};
