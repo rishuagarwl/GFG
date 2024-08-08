@@ -1,0 +1,19 @@
+class Solution {
+  public:
+  int solve(Node* root){
+      if(!root) return 0;
+      int left = solve(root->left);
+      int right = solve(root->right);
+      int sum = root->data + left+right;
+      return sum;
+  }
+    bool isSumTree(Node* root) {
+        if(!root || (root->left==NULL && root->right==NULL)) return true;
+        
+        if(root->data != solve(root->left) + solve(root->right)){
+            return false;
+        }
+        return isSumTree(root->left) && isSumTree(root->right);
+  
+    }
+};
