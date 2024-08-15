@@ -1,0 +1,44 @@
+class Solution {
+  public:
+    Node* rev(Node* head){
+        if(head==NULL || head->next == NULL){
+            return head;
+        }
+        Node*curr = head;
+        Node* prev = NULL;
+        Node* next;
+        
+        while(curr!=NULL){
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr= next;
+        }
+        return prev;
+    }
+    Node* addOne(Node* head) {
+        Node* temp = rev(head);
+        Node* curr = temp;
+        
+        temp->data = temp->data+1;
+        while(temp!=NULL){
+            int carry = temp->data /10;
+            int val = temp->data%10;
+            temp->data = val;
+            
+            if(carry!=0 && temp->next!=NULL){
+                temp = temp->next;
+                temp->data = temp->data+carry;
+            }
+            else if(carry!=0 && temp->next==NULL){
+                Node* new_n = new Node(carry);
+                temp->next = new_n;
+                temp = new_n;
+            }
+            else{
+                temp = temp->next;
+            }
+        }
+        return rev(curr);
+    }
+};
