@@ -1,0 +1,30 @@
+class Solution {
+  public:
+    vector<int> shortestPath(vector<vector<int>>& edges, int N,int M, int src){
+        unordered_map<int,list<int>>adj;
+        vector<int>ans(N,-1);
+        for(int i=0;i<edges.size();i++){
+            int u =edges[i][0];
+            int v= edges[i][1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        unordered_map<int, bool>vis;
+        queue<int>q;
+        vis[src]=1;
+        q.push(src);
+        ans[src] =0;
+        while(!q.empty()){
+            int front = q.front();
+            q.pop();
+            for(auto it:adj[front]){
+                if(!vis[it]){
+                    vis[it] = 1;
+                    q.push(it);
+                    ans[it] = ans[front]+1;
+                }
+            }
+        }
+        return ans;
+    }
+};
