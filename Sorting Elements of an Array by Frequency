@@ -1,0 +1,26 @@
+class Solution {
+  public:
+  static bool cmp(pair<int,int>&p1, pair<int,int>&p2){
+      return (p1.second == p2.second) ? p1.first<p2.first : p1.second > p2.second;
+  }
+    // Complete this function
+    // Function to sort the array according to frequency of elements.
+    vector<int> sortByFreq(vector<int>& arr) {
+        map<int,int>mp;
+        for(auto it:arr){
+            mp[it]++;
+        }
+        
+        vector<pair<int,int>>p(mp.begin(), mp.end());
+        sort(p.begin(), p.end(), cmp);
+        
+        vector<int>ans;
+        for(auto it:p){
+            while(it.second--){
+                ans.push_back(it.first);
+                
+            }
+        }
+        return ans;
+    }
+};
